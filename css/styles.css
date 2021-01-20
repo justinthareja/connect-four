@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+}
+
+.board {
+    display: flex;
+
+    background-color: blue;
+    border-radius: 8px;
+}
+
+.board-cell {
+    height: 50px;
+    width: 50px;
+
+    margin: 10px;
+    
+    background-color: white;
+    box-shadow: inset -3px -3px 5px 3px #ccc;
+    border-radius: 50%;
+}
+
+
+.red {
+    box-shadow: none;
+    background-color: red;
+}
+
+.yellow {
+    box-shadow: none;
+    background-color: yellow;
+}
+
