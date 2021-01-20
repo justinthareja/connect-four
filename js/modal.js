@@ -1,13 +1,14 @@
 var Modal = (function MakeModal(EVT) {
-    var $modal, $modalOverlay;
+    var $modal, $modalOverlay, $modalGuts;
     var $closeButton, $restartButton;
     
     EVT.on("init", init);
-    EVT.on("player-wins", playerWins)
+    EVT.on("player-wins", playerWins);
 
     function init () {
         $modal = document.querySelector("[rel=js-modal]");
         $modalOverlay = document.querySelector("[rel=js-modal-overlay]");
+        $modalGuts = document.querySelector("[rel=js-modal-guts]");
         $closeButton = document.querySelector("[rel=js-close]");
         $restartButton = document.querySelector("[rel=js-restart]");
 
@@ -37,8 +38,20 @@ var Modal = (function MakeModal(EVT) {
         $modalOverlay.classList.toggle("closed");
     }
 
-    function playerWins() {
+    function playerWins(player) {
         toggleModal();
+        render(player);
+    }
+
+    function template(player) {
+        return (`
+            <h1>Game Over!</h1>
+            </p>Player ${player} wins!</p>
+        `);
+    }
+
+    function render(player) {
+        $modalGuts.innerHTML = template(player);
     }
 
     var publicAPI = {
