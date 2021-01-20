@@ -13,9 +13,14 @@
 
 .board {
     display: flex;
-
+    flex-direction: column;
+    
     background-color: blue;
     border-radius: 8px;
+}
+
+.board-row {
+    display: flex;
 }
 
 .board-cell {
