@@ -11,6 +11,7 @@
 
     EVT.on("init", init);
     EVT.on("play", play);
+    EVT.on("restart", restart);
 
     function init() {
         EVT.emit("render", board);
@@ -169,6 +170,22 @@
         EVT.emit("player-turn", getPlayer());
         return;
     };
+
+    function clearBoard() {
+        board = [
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+        ];
+    }
+    
+    function restart() {
+        clearBoard();
+        EVT.emit("render", board);
+    }
     
     var publicAPI = {};
 
