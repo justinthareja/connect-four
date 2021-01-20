@@ -183,10 +183,13 @@
     }
     
     function restart() {
+        isPlayerOnesTurn = true;
+        
         clearBoard();
+
         EVT.emit("render", board);
     }
-    
+
     var publicAPI = {};
 
     return publicAPI;
