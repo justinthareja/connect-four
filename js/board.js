@@ -3,7 +3,6 @@
 
     EVT.on("init", init);
     EVT.on("render", render);
-    EVT.on("player-wins", playerWins);
 
     function init() {
         $board = document.querySelector("[rel=js-board]");
@@ -42,10 +41,6 @@
         });
 
         return html;
-    }
-
-    function playerWins(player) {
-        alert(`Winner Winner Chicken Dinner Player: ${player}!`);
     }
 
     function render(board) {
