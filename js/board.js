@@ -1,17 +1,13 @@
-(function (EVT, Connect4) {
+(function (EVT) {
     var $board;
-    var connect4 = new Connect4();
+
+    EVT.on("init", init);
+    EVT.on("render", render);
+    EVT.on("player-wins", playerWins);
 
     function init() {
         $board = document.querySelector("[rel=js-board]");
         $board.addEventListener("click", handleBoardClick);
-
-        render();
-    }
-
-    function handlePlay(columnIndex) {
-        connect4.play(columnIndex);
-        render();
     }
 
     function handleBoardClick(event) {
@@ -48,15 +44,16 @@
         return html;
     }
 
-    function render() {
-        $board.innerHTML = template(connect4.board);
+    function playerWins(player) {
+        alert(`Winner Winner Chicken Dinner Player: ${player}!`);
     }
 
-    EVT.on("init", init);
-    EVT.on("play", handlePlay);
+    function render(board) {
+        $board.innerHTML = template(board);
+    }
     
     var publicAPI = {};
 
     return publicAPI
 
-})(EVT, Connect4);
+})(EVT);

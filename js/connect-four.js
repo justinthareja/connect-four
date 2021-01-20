@@ -1,6 +1,6 @@
-function Connect4() {
-    this.isPlayerOnesTurn = true;
-    this.board = [
+(function Connect4(EVT) {
+    var isPlayerOnesTurn = true;
+    var board = [
         [0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0],
@@ -9,34 +9,41 @@ function Connect4() {
         [0, 0, 0, 0, 0, 0, 0],
     ];
 
-    this.checkCols = function checkCols() {
+    EVT.on("init", init);
+    EVT.on("play", play);
+
+    function init() {
+        EVT.emit("render", board);
+    }
+
+    function checkCols() {
         var columns = [];
 
         for (let col = 0; col <= 6; col++) {
             let column = [];
 
-            for (let row = this.board.length - 1; row >= 0; row--) {
-                let piece = this.getPiece([row, col]);
+            for (let row = board.length - 1; row >= 0; row--) {
+                let piece = getPiece([row, col]);
                 column.push(piece)
             }
 
             columns.push(column);
         }
 
-        columns = columns.map(this.hasFourInARow.bind(this));
+        columns = columns.map(hasFourInARow);
 
         return columns.includes(true);
-    };
+    }
 
-    this.checkRows = function checkRows() {
-        var rows = this.board;
+    function checkRows() {
+        var rows = board;
 
-        rows = rows.map(this.hasFourInARow.bind(this));
+        rows = rows.map(hasFourInARow);
 
         return rows.includes(true);
     }
 
-    this.checkDiagonals = function checkDiagonals() {
+    function checkDiagonals() {
         var diagonals = [
             // BOTTOM LEFT -> TOP RIGHT
             [[3, 0], [2, 1], [1, 2], [0, 3]],
@@ -55,16 +62,16 @@ function Connect4() {
             [[0, 3], [1, 4], [2, 5], [3, 6]]
         ];
 
-        diagonals = diagonals.map(this.getPieces.bind(this));
-        diagonals = diagonals.map(this.hasFourInARow.bind(this));
+        diagonals = diagonals.map(getPieces);
+        diagonals = diagonals.map(hasFourInARow);
 
         return diagonals.includes(true);
-    };
+    }
 
-    this.printBoard = function printBoard() {
+    function printBoard() {
         var print = "";
 
-        this.board.forEach(function printRow(col) {
+        board.forEach(function printRow(col) {
             print += JSON.stringify(col);
             print += "\n";
         });
@@ -72,24 +79,24 @@ function Connect4() {
         console.log(print);
     }
 
-    this.hasWinner = function hasWinner() {
-        return this.checkCols() || this.checkRows() || this.checkDiagonals();
-    };
+    function hasWinner() {
+        return checkCols() || checkRows() || checkDiagonals();
+    }
 
-    this.isValidColumn = function isValidColumn(col) {
-        for (let row = this.board.length - 1; row >= 0; row--) {
-            if (this.board[row][col] == 0) {
+    function isValidColumn(col) {
+        for (let row = board.length - 1; row >= 0; row--) {
+            if (board[row][col] == 0) {
                 return true;
             }
         }
 
         return false;
-    };
+    }
 
-    this.hasFourInARow = function hasFourInARow(array) {
+    function hasFourInARow(array) {
         var count = 0;
         var max = 0;
-        var target = this.getPlayer();
+        var target = getPlayer();
 
         array.forEach(function countVal(val) {
             if (val == target) {
@@ -106,60 +113,64 @@ function Connect4() {
         return max >= 4;
     }
 
-    this.getPieces = function getPieces(coords) {
-        return coords.map(this.getPiece.bind(this));
+    function getPieces(coords) {
+        return coords.map(getPiece);
     }
 
-    this.getPiece = function getPiece(coord) {
+    function getPiece(coord) {
         var [row, col] = coord;
 
         if (row == null || col == null) {
-            throw "Cannot get piece, invalid coordinate";
+            throw new Error("Cannot get piece, invalid coordinate");
         }
 
-        return this.board[row][col];
+        return board[row][col];
     }
 
-    this.setPiece = function setPiece(col) {
-        for (let row = this.board.length - 1; row >= 0; row--) {
-            if (this.board[row][col] == 0) {
-                this.board[row][col] = this.getPlayer();
+    function setPiece(col) {
+        for (let row = board.length - 1; row >= 0; row--) {
+            if (board[row][col] == 0) {
+                board[row][col] = getPlayer();
                 return;
             }
         }
 
-        console.error("Couldn't set piece");
-    };
-
-    this.getPlayer = function getPlayer() {
-        return this.isPlayerOnesTurn ? 1 : 2;
-    };
-
-    this.getOtherPlayer = function getOtherPlayer() {
-        return this.isPlayerOnesTurn ? 2 : 1;
-    };
-
-    this.togglePlayerTurn = function togglePlayerTurn() {
-        this.isPlayerOnesTurn = !this.isPlayerOnesTurn;
-    };
-};
-
-Connect4.prototype.play = function (col) {
-    if (this.hasWinner()) {
-        return "Game has finished!";
+        throw new Error ("Couldn't set piece");
     }
 
-    if (!this.isValidColumn(col)) {
-        return "Column full!";
+    function getPlayer() {
+        return isPlayerOnesTurn ? 1 : 2;
     }
 
-    this.setPiece(col);
-
-    if (this.hasWinner()) {
-        return `Player ${this.getPlayer()} wins!`;
+    function togglePlayerTurn() {
+        isPlayerOnesTurn = !isPlayerOnesTurn;
     }
 
-    this.togglePlayerTurn();
+    function play(col) {
+        if (hasWinner()) {
+            EVT.emit("game-over");
+            return;
+        }
 
-    return `Player ${this.getOtherPlayer()} has a turn`;
-};
+        if (!isValidColumn(col)) {
+            EVT.emit("column-full");
+            return;
+        } 
+
+        setPiece(col);
+        EVT.emit("render", board);
+
+        if (hasWinner()) {
+            EVT.emit("player-wins", getPlayer());
+            return;
+        } 
+
+        togglePlayerTurn();
+        EVT.emit("player-turn", getPlayer());
+        return;
+    };
+    
+    var publicAPI = {};
+
+    return publicAPI;
+})(EVT);
