@@ -3,12 +3,29 @@
     padding: 0;
 
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', sans-serif;
+}
+
+header {
+    padding: 10px 20px;
+}
+
+header .separator {
+    height: 1px;
+    background-color: hsl(0deg 4% 82%);
+}
+
+.four {
+    font-size: 1.75em;
+    text-align: middle;
+    color: red;
 }
 
 .content {
     display: flex;
     justify-content: center;
+
+    padding: 20px;
 }
 
 .board {
@@ -27,7 +44,7 @@
     height: 50px;
     width: 50px;
 
-    margin: 10px;
+    margin: 5px;
     
     background-color: white;
     box-shadow: inset -3px -3px 5px 3px #ccc;
@@ -36,12 +53,12 @@
 
 
 .red {
-    box-shadow: none;
     background-color: red;
+    box-shadow: 4px 10px 4px rgba(255, 255, 255, 0.4) inset;
 }
 
 .yellow {
-    box-shadow: none;
     background-color: yellow;
+    box-shadow: 4px 10px 4px rgba(255, 255, 255, 0.4) inset;
 }
 

@@ -46,7 +46,7 @@ var Modal = (function MakeModal(EVT) {
     function template(player) {
         return (`
             <h1>Game Over!</h1>
-            </p>Player ${player} wins!</p>
+            <p>Player ${player} wins!</p>
         `);
     }
 

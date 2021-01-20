@@ -6,8 +6,7 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    border: 1px solid red;
+    transform: translate(-50%, -100%);
     
     width: 300px;
     max-width: 100%;
@@ -44,10 +43,14 @@
     z-index: 1000;
 
     backdrop-filter: blur(2px);
+    background-color: #fdfdfd;
+    opacity: 0.8;
 }
 
 .modal .close-button,
 .modal .restart-button {
+    padding: 10px;
+
     z-index: 1;
 }
 
