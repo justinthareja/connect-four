@@ -59,5 +59,4 @@ var Modal = (function MakeModal(EVT) {
     };
     
     return publicAPI;
-
 })(EVT);

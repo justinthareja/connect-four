@@ -1,4 +1,4 @@
-(function (EVT) {
+var Board = (function MakeBoard(EVT) {
     var $board;
 
     EVT.on("init", init);
@@ -48,7 +48,6 @@
     }
     
     var publicAPI = {};
-
+    
     return publicAPI
-
 })(EVT);

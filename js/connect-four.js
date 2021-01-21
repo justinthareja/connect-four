@@ -1,4 +1,4 @@
-(function Connect4(EVT) {
+var Connect4 = (function MakeConnect4(EVT) {
     var isPlayerOnesTurn = true;
     var board = [
         [0, 0, 0, 0, 0, 0, 0],
