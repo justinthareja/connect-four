@@ -1,0 +1,83 @@
+header {
+    display: flex;
+    justify-content: space-between;
+
+    margin: 10px 20px;
+    border-bottom: 1px solid hsl(0deg 4% 89%);
+}
+
+header .four {
+    font-size: 1.75em;
+    text-align: middle;
+    color: red;
+}
+
+header .down-arrow {
+    font-size: 0.5em;
+}
+
+header .menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+
+    font-size: 18px;
+    list-style: none;
+}
+
+header .menu > li {
+    margin-right: 50px;
+    padding: 10px;
+}
+
+header .menu > li:last-of-type {
+    margin-right: 0;
+}
+
+header a:link,
+header a:visited {
+    padding: 8px;
+
+    color: hsl(0, 0%, 20%);
+    text-decoration: none;
+    border-radius: 30px;
+}
+
+header a:hover {
+    background-color: hsl(0, 0%, 85%);
+}
+
+header .dropdown {
+    position: relative;
+}
+
+header .dropdown:hover .game-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    position: absolute;
+    top: 30px;
+    /* Bump menu back same value as <a> padding, to retain hover behavior */
+    left: -8px;
+    width: 130px;
+    z-index: 1;
+    
+    padding: 10px;
+}
+
+
+header .dropdown > span {
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}
+
+header .game-menu {
+    display: none;;
+}
+
+header .game-menu  li {
+    margin-top: 15px;
+    list-style: none;
+}

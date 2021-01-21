@@ -6,13 +6,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/modal.css">
     <title>Connect Four</title>
 </head>
 <body>
     <header>
         <h1>Connect<span class="four">4</span></h1>
-        <div class="separator"></div>
+        <ul class="menu">
+            <li class="dropdown"><span>Game <span class="down-arrow">ᐁ</span></span>
+                <ul class="game-menu">
+                    <li><a href="#">New Game</a></li>
+                    <li><a href="#">Restart</a></li>
+                </ul>
+            </li>
+            <li><a href="#">About</a></li>
+        </ul>
     </header>
     <div class="content">
         <div class="board" rel="js-board"></div>

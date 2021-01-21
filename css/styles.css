@@ -1,24 +1,8 @@
 * {
     margin: 0;
     padding: 0;
-
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
-}
-
-header {
-    padding: 10px 20px;
-}
-
-header .separator {
-    height: 1px;
-    background-color: hsl(0deg 4% 82%);
-}
-
-.four {
-    font-size: 1.75em;
-    text-align: middle;
-    color: red;
 }
 
 .content {
