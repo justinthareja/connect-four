@@ -1,4 +1,4 @@
-(function (EVT) {
+(function (EVT, socket) {
     var $board;
 
     EVT.on("init", init);
@@ -19,7 +19,8 @@
             return child == event.target;
         });
 
-        EVT.emit('play', columnIndex);
+        // EVT.emit('play', columnIndex);
+        socket.emit("play", columnIndex);
     }
 
     // Takes a board array and returns the corresponding HTML string
@@ -51,4 +52,4 @@
 
     return publicAPI
 
-})(EVT);
+})(EVT, socket);
