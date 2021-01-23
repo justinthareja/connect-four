@@ -132,7 +132,7 @@ var Connect4 = (function MakeConnect4(EVT) {
         for (let row = board.length - 1; row >= 0; row--) {
             if (board[row][col] == 0) {
                 board[row][col] = getPlayer();
-                return;
+                return row;
             }
         }
 
@@ -158,8 +158,9 @@ var Connect4 = (function MakeConnect4(EVT) {
             return;
         } 
 
-        setPiece(col);
-        EVT.emit("render", board);
+        var row = setPiece(col);
+        // EVT.emit("render", board);
+        EVT.emit("animate-piece", getPlayer(), [row, col]);
 
         if (hasWinner()) {
             EVT.emit("player-wins", getPlayer());
