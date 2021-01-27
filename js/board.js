@@ -11,23 +11,13 @@ var Board = (function MakeBoard(EVT) {
     }
 
     function handleBoardClick(event) {
-        let $row;
-        let $cell;
-
-        if (event.target.matches("[rel*=js-cell]")) {
-            $row = event.target.parentElement;
-            $cell = event.target;
-        } else if (event.target.matches(".piece")) {
-            $row = event.target.parentElement.parentElement;
-            $cell = event.target.parentElement;
-        }
-
-        if (!$row || $cell) return;
+        if (!event.target.matches("[rel*=js-cell]")) return;
 
         event.preventDefault();
 
-        let columnIndex = Array.from($row.children).findIndex(function matchCell(cell){
-            return cell == $cell;
+        let parent = event.target.parentElement;
+        let columnIndex = Array.from(parent.children).findIndex(function matchTarget(child){
+            return child == event.target;
         });
 
         EVT.emit('play', columnIndex);
